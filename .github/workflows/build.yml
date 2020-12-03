@@ -1,0 +1,22 @@
+on: [push, pull_request]
+
+name: Cross-compile
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        bin:
+          - docker-credential
+    steps:
+      - uses: actions/checkout@v2
+      - run: make
+        working-directory: ${{ matrix.bin }}
+      - uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.bin }}
+          path: |
+            ${{ matrix.bin }}/docker-credential
+            ${{ matrix.bin }}/docker-credential-darwin
