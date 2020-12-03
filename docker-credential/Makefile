@@ -9,7 +9,7 @@ build:
 compress:
 	../bin/upx ./docker-credential
 	
-# NOTE docker cli plugins are deprecated
+# NOTE docker cli plugins are deprecated, so actually don't do this
 .PHONY: install
 install:
 	mkdir -p ~/.docker/cli-plugins
