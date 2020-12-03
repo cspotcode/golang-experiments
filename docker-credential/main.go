@@ -3,13 +3,20 @@ package main
 import (
 	"fmt"
 	"os"
+
+	"github.com/cspotcode/golang-experiments/docker-credential-cli/cli"
 	"github.com/cspotcode/golang-experiments/docker-credential-cli/commands/store"
+	"github.com/cspotcode/golang-experiments/docker-credential-cli/log"
 
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 )
 
 func main() {
+	logger := log.CreateLogger()
+	cli := cli.Cli{
+		Logger: logger,
+	}
 	var rootCmd = &cobra.Command{
 		Use:   "docker-credential",
 		Short: "CLI for manipulating docker CLI's stored credentials",
@@ -18,6 +25,7 @@ func main() {
 			return errors.Errorf("you must specify a subcommand")
 		},
 	}
+	rootCmd.PersistentFlags().BoolVarP(&logger.VerboseEnabled, "verbose", "v", false, "verbose output")
 
 	// NOTE docker cli plugins are deprecated
 	pluginMetadataCmd := &cobra.Command{
@@ -34,7 +42,7 @@ func main() {
 		},
 	}
 	rootCmd.AddCommand(pluginMetadataCmd)
-	rootCmd.AddCommand(store.CreateStoreCmd())
+	rootCmd.AddCommand(store.CreateStoreCmd(&cli))
 
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Fprintln(os.Stderr, err)

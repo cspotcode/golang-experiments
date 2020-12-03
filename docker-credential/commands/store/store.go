@@ -6,6 +6,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/cspotcode/golang-experiments/docker-credential-cli/cli"
 	dockerconfig "github.com/docker/cli/cli/config"
 	dockerconfigtypes "github.com/docker/cli/cli/config/types"
 	"github.com/docker/docker/api/types"
@@ -18,7 +19,8 @@ type isFileStore interface {
 	GetFilename() string
 }
 
-type storeCmdArgs struct {
+type StoreCmdArgs struct {
+	cli           *cli.Cli
 	username      string
 	password      string
 	passwordStdin bool
@@ -26,8 +28,10 @@ type storeCmdArgs struct {
 	serverAddress string
 }
 
-func CreateStoreCmd() *cobra.Command {
-	opts := storeCmdArgs{}
+func CreateStoreCmd(cli *cli.Cli) *cobra.Command {
+	opts := StoreCmdArgs{
+		cli: cli,
+	}
 	cmd := &cobra.Command{
 		Use:   "store <server address>",
 		Short: "store credentials",
@@ -57,17 +61,18 @@ func CreateStoreCmd() *cobra.Command {
 	}
 	cmd.Flags().StringVarP(&opts.username, "username", "u", "", "username")
 	cmd.Flags().StringVarP(&opts.password, "password", "p", "", "password")
-	cmd.Flags().BoolVarP(&opts.passwordStdin, "password-stdin", "", false, "Take the password from stdin")
-	// cmd.Flags().StringVarP(&storeCmdArgs.identityToken, "token", "t", "", "identity token, for token auth")
+	cmd.Flags().BoolVar(&opts.passwordStdin, "password-stdin", false, "Take the password from stdin")
+	// cmd.Flags().StringVarP(&StoreCmdArgs.identityToken, "token", "t", "", "identity token, for token auth")
 
-	cmd.AddCommand(CreateStoreAwsCmd())
+	cmd.AddCommand(CreateStoreAwsCmd(cli))
 	return cmd
 }
 
-func Store(args storeCmdArgs) error {
-	// println("storing credentials for", args.serverAddress)
+func Store(args StoreCmdArgs) error {
+	logger := args.cli.Logger
 	config := dockerconfig.LoadDefaultConfigFile(os.Stderr)
 
+	logger.Verbose("Storing credentials for " + args.serverAddress)
 	authConfig := types.AuthConfig{}
 	authConfig.ServerAddress = args.serverAddress
 	// authConfig.IdentityToken = args.identityToken
@@ -80,5 +85,6 @@ func Store(args storeCmdArgs) error {
 	if err := creds.Store(dockerconfigtypes.AuthConfig(authConfig)); err != nil {
 		return errors.Errorf("Error saving credentials: %v", err)
 	}
+	logger.Verbose("Stored credentials for " + args.serverAddress)
 	return nil
 }
