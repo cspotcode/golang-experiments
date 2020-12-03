@@ -1,4 +1,4 @@
-module github.com/cspotcode/golang-experiments/docker-credential-cli
+module github.com/cspotcode/golang-experiments/docker-credential
 
 go 1.15
 

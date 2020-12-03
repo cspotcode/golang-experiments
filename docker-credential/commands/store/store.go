@@ -6,7 +6,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/cspotcode/golang-experiments/docker-credential-cli/cli"
+	"github.com/cspotcode/golang-experiments/docker-credential/cli"
 	dockerconfig "github.com/docker/cli/cli/config"
 	dockerconfigtypes "github.com/docker/cli/cli/config/types"
 	"github.com/docker/docker/api/types"

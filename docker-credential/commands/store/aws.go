@@ -8,7 +8,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/ec2"
 	"github.com/aws/aws-sdk-go/service/ecr"
-	"github.com/cspotcode/golang-experiments/docker-credential-cli/cli"
+	"github.com/cspotcode/golang-experiments/docker-credential/cli"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 )

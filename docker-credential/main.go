@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/cspotcode/golang-experiments/docker-credential-cli/cli"
-	"github.com/cspotcode/golang-experiments/docker-credential-cli/commands/store"
-	"github.com/cspotcode/golang-experiments/docker-credential-cli/log"
+	"github.com/cspotcode/golang-experiments/docker-credential/cli"
+	"github.com/cspotcode/golang-experiments/docker-credential/commands/store"
+	"github.com/cspotcode/golang-experiments/docker-credential/log"
 
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
@@ -36,7 +36,7 @@ func main() {
 				`"Vendor":"cspotcode",` +
 				`"Version":"0.0.0",` +
 				`"ShortDescription":"Store credentials into docker credential store",` +
-				`"URL":"https://github.com/cspotcode/golang-experiments/docker-credential-cli"` +
+				`"URL":"https://github.com/cspotcode/golang-experiments/docker-credential"` +
 				`}`)
 			return nil
 		},

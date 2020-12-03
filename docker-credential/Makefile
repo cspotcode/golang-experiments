@@ -1,9 +1,11 @@
 .PHONY: all
 all: build compress
 
+# Goals: fully static compressed binary suitable for committing to git without anything special like GITLFS
+
 .PHONY: build
 build:
-	CGO_ENABLED=0 go build -ldflags="-s -w" -o docker-credential .
+	CGO_ENABLED=0 go build -ldflags="-s -w" .
 
 .PHONY: compress
 compress:
