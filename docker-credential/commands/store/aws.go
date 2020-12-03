@@ -2,6 +2,7 @@ package store
 
 import (
 	"encoding/base64"
+	"strings"
 	"sync"
 
 	"github.com/aws/aws-sdk-go/aws"
@@ -108,10 +109,11 @@ Loop:
 			if err != nil {
 				return err
 			}
+			usernameAndPassword := strings.Split(string(decoded), ":")
 			err2 := Store(StoreCmdArgs{
 				cli:           opts.cli,
-				username:      "AWS",
-				password:      string(decoded),
+				username:      usernameAndPassword[0],
+				password:      usernameAndPassword[1],
 				serverAddress: opts.accountid + ".dkr.ecr." + auth.region + ".amazonaws.com",
 			})
 			if err2 != nil {
