@@ -1,6 +1,6 @@
 on: [push, pull_request]
 
-name: Cross-compile
+name: Build and upload artifacts
 
 jobs:
   build:
@@ -12,6 +12,8 @@ jobs:
           - docker-credential
     steps:
       - uses: actions/checkout@v2
+        with:
+          submodules: true
       - run: make
         working-directory: ${{ matrix.bin }}
       - uses: actions/upload-artifact@v2
