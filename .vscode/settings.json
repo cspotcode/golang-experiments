@@ -6,4 +6,5 @@
         "diagnostics": true,
         "documentLink": true,
     },
+    "go.inferGopath": false,
 }

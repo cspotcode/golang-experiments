@@ -1,0 +1,24 @@
+on: [push, pull_request]
+
+name: Build and upload artifacts
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        bin:
+          - docker-credential
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+      - run: make
+        working-directory: ${{ matrix.bin }}
+      - uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.bin }}.zip
+          path: |
+            ${{ matrix.bin }}/docker-credential
+            ${{ matrix.bin }}/docker-credential-darwin
