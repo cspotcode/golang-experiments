@@ -17,6 +17,6 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/sirupsen/logrus v1.7.0 // indirect
 	github.com/spf13/cobra v1.1.1
-	golang.org/x/sys v0.0.0-20201202213521-69691e467435 // indirect
+	golang.org/x/sys v0.0.0-20220503163025-988cb79eb6c6 // indirect
 	golang.org/x/tools/gopls v0.5.4 // indirect
 )
