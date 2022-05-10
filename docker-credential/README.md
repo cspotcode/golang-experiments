@@ -20,7 +20,7 @@ docker-credential store aws --regions us-west-2,us-east-1 <aws account id>
 Install from source:
 
 ```
-go get -u github.com/cspotcode/golang-experiments/docker-credential
+go install github.com/cspotcode/golang-experiments/docker-credential
 ```
 
 Or download a prebuilt binary from the most recent "Github Actions" build: https://github.com/cspotcode/golang-experiments/actions
