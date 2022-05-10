@@ -3,10 +3,10 @@ package store
 import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/ecr"
 	"github.com/aws/aws-sdk-go/service/ec2"
-	"github.com/spf13/cobra"
+	"github.com/aws/aws-sdk-go/service/ecr"
 	"github.com/pkg/errors"
+	"github.com/spf13/cobra"
 )
 
 type storeAwsCmdArgs struct {
@@ -17,7 +17,7 @@ type storeAwsCmdArgs struct {
 func CreateStoreAwsCmd() *cobra.Command {
 	opts := storeAwsCmdArgs{}
 	cmd := &cobra.Command{
-		Use:   "aws <region> <account>",
+		Use:   "aws <account>",
 		Short: "generate and store credentials for AWS ECR",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -56,11 +56,11 @@ func StoreAws(opts storeAwsCmdArgs) error {
 		}))
 		svc := ecr.New(ecrSession)
 		authorizationToken, err := svc.GetAuthorizationToken(&ecr.GetAuthorizationTokenInput{
-		RegistryIds: []*string{&opts.accountid},
-	})
+			RegistryIds: []*string{&opts.accountid},
+		})
 		if err != nil {
-		return errors.Errorf("Error generating ecr credentials: %v", err)
-	}
+			return errors.Errorf("Error generating ecr credentials: %v", err)
+		}
 		println(authorizationToken)
 	}
 	return nil

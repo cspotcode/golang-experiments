@@ -2,13 +2,13 @@ module github.com/cspotcode/golang-experiments/docker-credential-cli
 
 go 1.15
 
+// https://github.com/cspotcode/docker-cli/tree/as-module
 // replace github.com/docker/cli => ../docker-cli
-
-// replace cli => ../docker-cli/cli
 
 require (
 	github.com/aws/aws-sdk-go v1.36.0
-	github.com/cspotcode/docker-cli as-module
+	github.com/cspotcode/docker-cli v0.0.0-20220510223012-ff27b8856ef5
+	github.com/docker/cli v20.10.15+incompatible
 	github.com/docker/docker v1.13.1
 	github.com/docker/docker-credential-helpers v0.6.3 // indirect
 	github.com/docker/go-connections v0.4.0 // indirect
@@ -17,4 +17,5 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/sirupsen/logrus v1.7.0 // indirect
 	github.com/spf13/cobra v1.1.1
+	golang.org/x/sys v0.0.0-20220503163025-988cb79eb6c6 // indirect
 )

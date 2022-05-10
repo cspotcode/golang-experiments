@@ -1,3 +1,4 @@
 [submodule "docker-cli"]
 	path = docker-cli
-	url = https://github.com/docker/cli
+	url = https://github.com/cspotcode/docker-cli
+	branch = as-module
