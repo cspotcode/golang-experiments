@@ -7,7 +7,7 @@ go 1.15
 
 require (
 	github.com/aws/aws-sdk-go v1.36.0
-	github.com/cspotcode/docker-cli v0.0.0-20220510223012-ff27b8856ef5
+	github.com/awslabs/amazon-ecr-credential-helper/ecr-login v0.0.0-20201113001948-d77edb6d2e47
 	github.com/docker/cli v20.10.15+incompatible
 	github.com/docker/docker v1.13.1
 	github.com/docker/docker-credential-helpers v0.6.3 // indirect
